@@ -6,7 +6,7 @@ import os
 import time
 import numpy as np
 from sklearn.metrics import confusion_matrix, classification_report, accuracy_score
-import pandas as pd  # 用于美化结果输出
+import pandas as pd  
 import torch.nn.functional as F
 
 
@@ -43,12 +43,12 @@ TEST_DATA_ROOT = 'data/workspace/test'
 ORIGINAL_MODEL_PATH = 'FruitNet_model.pth'
 QUANTIZED_MODEL_PATH = 'FruitNet_model_quantized.pth'
 
-# 类别信息 (应与训练脚本中的合并结果一致)
+# 类别信息
 CLASS_NAMES = ['Apple', 'Banana', 'Guava', 'Lemon', 'Orange', 'Pomegranate']
 NUM_CLASSES = len(CLASS_NAMES)
 IMAGE_SIZE = 64
 BATCH_SIZE = 32
-# 原始模型在 GPU/CPU，量化模型必须在 CPU
+
 DEVICE_ORIGINAL = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 DEVICE_QUANTIZED = torch.device("cpu")  # 量化模型只能在 CPU 上运行
 
@@ -59,7 +59,7 @@ data_transforms = transforms.Compose([
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
 ])
 
-# 加载测试数据集 (使用标准的 ImageFolder，因为它已经按合并后的类别组织)
+# 加载测试数据集 
 try:
     test_dataset = datasets.ImageFolder(
         root=TEST_DATA_ROOT,
